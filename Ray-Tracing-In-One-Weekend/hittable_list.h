@@ -26,8 +26,7 @@ public:
     std::vector<shared_ptr<hittable>> hit_objects;
 };
 
-inline bool hittable_list::hit(const ray& r, const double t_min, const double t_max,
-    hit_record& rec)
+inline bool hittable_list::hit(const ray& r, const double t_min, const double t_max, hit_record& rec)
     const
 {
     hit_record temp_record;
