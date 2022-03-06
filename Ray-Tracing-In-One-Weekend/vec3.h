@@ -162,4 +162,13 @@ inline vec3 reflect(const vec3& v, const vec3& n)
 	return v - 2 * dot(v, n) * n;
 }
 
+inline vec3 refract(const vec3& in_ray, const vec3& normal, const double etai_over_etat)
+{
+	// etai_over_etat == ¦Ç / ¦Ç'
+	const double cos_theta = fmin(dot(-in_ray, normal), 1.0);
+	const vec3 r_out_perpendicular = etai_over_etat * (in_ray + cos_theta * normal);
+	const vec3 r_out_parallel = -sqrt(fabs(1.0 - r_out_perpendicular.length_squared())) * normal;
+	return r_out_perpendicular + r_out_parallel;
+}
+
 #endif

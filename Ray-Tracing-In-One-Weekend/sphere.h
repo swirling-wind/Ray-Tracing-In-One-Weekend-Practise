@@ -34,13 +34,13 @@ inline bool sphere::hit(const ray& r, double min_t_of_ray, double max_t_of_ray, 
 
 	if (discriminant < 0)
 		return false;
-	const double sqrtd = sqrt(discriminant);
+	const double sqrt_delta = sqrt(discriminant);
 
 	// Find the nearest root that lies in the acceptable range.
-	auto root = (-half_b - sqrtd) / a;
+	auto root = (-half_b - sqrt_delta) / a;
 	if (root < min_t_of_ray || max_t_of_ray < root)
 	{
-		root = (-half_b + sqrtd) / a;
+		root = (-half_b + sqrt_delta) / a;
 		if (root < min_t_of_ray || max_t_of_ray < root)
 		{
 			return false;

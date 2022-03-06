@@ -13,7 +13,7 @@ struct hit_record
     double t_of_ray{ 0.0 };//
     bool front_face{ false };//
 
-    inline void set_face_normal(const ray& r, const vec3& outward_normal)
+    void set_face_normal(const ray& r, const vec3& outward_normal)
     {
         front_face = dot(r.direction(), outward_normal) < 0;
         normal_vec_of_hit = front_face ? outward_normal : -outward_normal;
