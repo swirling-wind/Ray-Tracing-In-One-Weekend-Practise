@@ -8,28 +8,33 @@ class sphere final : public hittable
 {
 public:
 	sphere() = default;
-	sphere(point3 cen, double r) : center{ cen }, radius{ r } {}
+	sphere(const point3 cen, const double r, shared_ptr<material> m)
+		: center(cen), radius(r), mat_ptr(std::move(m))
+	{}
 
 	bool hit(
 		const ray& r, double min_t_of_ray, double max_t_of_ray, hit_record& record)
 		const override;
 
+// ReSharper disable once CppRedundantAccessSpecifier
 public:
 	point3 center;
-	double radius;
+	double radius{};
+	shared_ptr<material> mat_ptr;
 };
 
 inline bool sphere::hit(const ray& r, double min_t_of_ray, double max_t_of_ray, hit_record& record) const
 {
-	vec3 oc = r.origin() - center;
-	auto half_b = dot(oc, r.direction());
-	auto a = r.direction().length_squared();
-	auto c = oc.length_squared() - radius * radius;
+	const vec3 oc = r.origin() - center;
+	const double half_b = dot(oc, r.direction());
+	const double a = r.direction().length_squared();
+	const double c = oc.length_squared() - radius * radius;
 
-	auto discriminant = half_b * half_b - a * c;
+	const double discriminant = half_b * half_b - a * c;
+
 	if (discriminant < 0)
 		return false;
-	const auto sqrtd = sqrt(discriminant);
+	const double sqrtd = sqrt(discriminant);
 
 	// Find the nearest root that lies in the acceptable range.
 	auto root = (-half_b - sqrtd) / a;
@@ -45,8 +50,9 @@ inline bool sphere::hit(const ray& r, double min_t_of_ray, double max_t_of_ray, 
 	record.t_of_ray = root;
 	record.hit_point = r.at(record.t_of_ray);
 
-	vec3 outward_normal = (record.hit_point - center) / radius;
+	const vec3 outward_normal = (record.hit_point - center) / radius;
 	record.set_face_normal(r, outward_normal);
+	record.mat_ptr = mat_ptr;
 
 	return true;
 }

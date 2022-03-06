@@ -3,10 +3,13 @@
 
 #include "ray.h"
 
+class material;
+
 struct hit_record
 {
     point3 hit_point;
     vec3 normal_vec_of_hit;
+    shared_ptr<material> mat_ptr;
     double t_of_ray{ 0.0 };//
     bool front_face{ false };//
 

@@ -12,16 +12,16 @@ using std::make_shared;
 class hittable_list : public hittable
 {
 public:
-    hittable_list() {}
-    hittable_list(shared_ptr<hittable> object) { add(object); }
+    hittable_list() = default;
+    hittable_list(const shared_ptr<hittable>& object) { add(object); }
 
     void clear() { hit_objects.clear(); }
-    void add(shared_ptr<hittable> object) { hit_objects.push_back(object); }
+    void add(const shared_ptr<hittable>& object) { hit_objects.push_back(object); }
 
-    virtual bool hit(
-        const ray& r, double t_min, double t_max, hit_record& rec)
+    bool hit(const ray& r, double t_min, double t_max, hit_record& rec)
         const override;
 
+// ReSharper disable once CppRedundantAccessSpecifier
 public:
     std::vector<shared_ptr<hittable>> hit_objects;
 };

@@ -146,6 +146,7 @@
   <ItemGroup>
     <ClCompile Include="camera.h" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="material.h" />
     <ClCompile Include="sphere.h" />
   </ItemGroup>
   <ItemGroup>

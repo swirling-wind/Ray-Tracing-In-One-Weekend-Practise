@@ -24,6 +24,9 @@
     <ClCompile Include="sphere.h">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="material.h">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="color.h">
