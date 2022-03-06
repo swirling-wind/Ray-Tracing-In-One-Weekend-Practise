@@ -44,7 +44,7 @@ int main()
     camera cam;
 
     // Render
-    std::ofstream output_image("output_image_8_4.ppm");
+    std::ofstream output_image("output_image_from_8_4.ppm");
 
     output_image << "P3\n" << image_width << ' ' << image_height << "\n255\n";
 
