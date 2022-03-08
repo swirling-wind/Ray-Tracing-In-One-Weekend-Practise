@@ -18,9 +18,9 @@ color ray_color(const ray& r, const hittable& world, int depth)
     {
         ray scattered;
         color attenuation;
-        if (record.mat_ptr->scatter(r, record, attenuation, scattered))
+        if (record.hit_material->scatter(r, record, attenuation, scattered))
             return attenuation * ray_color(scattered, world, depth - 1);
-        return color(0, 0, 0);
+        return color{ 0, 0, 0 };
     }
     const vec3 unit_direction = unit_vector(r.direction());
     const auto t = 0.5 * (unit_direction.y() + 1.0);
@@ -66,8 +66,8 @@ int main()
             color pixel_color(0, 0, 0);
             for (int s = 0; s < samples_per_pixel; ++s)
             {
-                auto u = (i + random_double()) / (image_width - 1);
-                auto v = (j + random_double()) / (image_height - 1);
+	            const double u = (i + random_double()) / (image_width - 1);
+	            const double v = (j + random_double()) / (image_height - 1);
                 ray r = camera.get_ray(u, v);
                 pixel_color += ray_color(r, world, max_depth);
             }

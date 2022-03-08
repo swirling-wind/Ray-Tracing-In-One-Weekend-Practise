@@ -9,14 +9,14 @@ struct hit_record
 {
     point3 hit_point;
     vec3 normal_vec_of_hit;
-    shared_ptr<material> mat_ptr;
+    shared_ptr<material> hit_material;
     double t_of_ray{ 0.0 };//
-    bool front_face{ false };//
+    bool is_front_face{ false };//
 
     void set_face_normal(const ray& r, const vec3& outward_normal)
     {
-        front_face = dot(r.direction(), outward_normal) < 0;
-        normal_vec_of_hit = front_face ? outward_normal : -outward_normal;
+    	is_front_face = dot(r.direction(), outward_normal) < 0;
+        normal_vec_of_hit = is_front_face ? outward_normal : -outward_normal;
     }
 };
 

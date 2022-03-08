@@ -9,7 +9,7 @@ class sphere final : public hittable
 public:
 	sphere() = default;
 	sphere(const point3 cen, const double r, shared_ptr<material> m)
-		: center(cen), radius(r), mat_ptr(std::move(m))
+		: center(cen), radius(r), object_material(std::move(m))
 	{}
 
 	bool hit(
@@ -20,7 +20,7 @@ public:
 public:
 	point3 center;
 	double radius{};
-	shared_ptr<material> mat_ptr;
+	shared_ptr<material> object_material;
 };
 
 inline bool sphere::hit(const ray& r, double min_t_of_ray, double max_t_of_ray, hit_record& record) const
@@ -52,7 +52,7 @@ inline bool sphere::hit(const ray& r, double min_t_of_ray, double max_t_of_ray, 
 
 	const vec3 outward_normal = (record.hit_point - center) / radius;
 	record.set_face_normal(r, outward_normal);
-	record.mat_ptr = mat_ptr;
+	record.hit_material = object_material;
 
 	return true;
 }
