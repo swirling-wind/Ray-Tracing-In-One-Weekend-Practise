@@ -7,12 +7,14 @@
 class camera
 {
 public:
-    camera()
+    camera(double vertical_field_of_view, double aspect_ratio)
     {
-	    const double aspect_ratio = 16.0 / 9.0;
-	    const double viewport_height = 2.0;
+	    const double theta = degrees_to_radians(vertical_field_of_view);
+	    const double h = tan(theta / 2);
+	    const double viewport_height = 2.0 * h;
 	    const double viewport_width = aspect_ratio * viewport_height;
-	    const double focal_length = 1.0;
+
+	    constexpr double focal_length = 1.0;
 
         origin = point3{ 0, 0, 0 };
         horizontal = vec3{ viewport_width, 0.0, 0.0 };
