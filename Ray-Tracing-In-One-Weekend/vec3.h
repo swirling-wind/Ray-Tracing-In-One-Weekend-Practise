@@ -171,4 +171,14 @@ inline vec3 refract(const vec3& in_ray, const vec3& normal, const double etai_ov
 	return r_out_perpendicular + r_out_parallel;
 }
 
+inline vec3 random_in_unit_disk()
+{
+	while (true)
+	{
+		auto p = vec3(random_double(-1, 1), random_double(-1, 1), 0);
+		if (p.length_squared() >= 1) continue;
+		return p;
+	}
+}
+
 #endif
